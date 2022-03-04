@@ -1,4 +1,12 @@
-Här kan vi skriva ideer till projektet
-en ide är att vi gör en app
-hi
-HEj
+Datateknik uppgifter:
+1. Skriva en algoritm som tar input från sensorn och ger en output som dimmmer funktion. 
+Denna funktion måste ha ett max/min värde där max är starkast ljus och min lägst ljusstyrka.
+Denna ska vara skriven i Arduinon.
+Arduinon ska skicka sina värden till en app via bluetooth.
+2. Skapa en app som kan kopplas till Arudinon.
+Den ska ha en trevlig interface som har två sidor. Ena sidan ska vara med funktioner till arduinon så som att stänga av och sätta på, öka ljusstyrkan, minska ljusstyrkan och automatisk.
+Andra sidan ska vara "databasen" där vi kan se input och output från arduinon. 
+
+
+
+
