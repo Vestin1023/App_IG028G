@@ -1,0 +1,7 @@
+Kod till arduino och dess delar. För att kunna koppla ihop med app inventor.
+Delar:
+*Arduiono bluetooth
+*Ultraljud sensor
+*Lampa
+*Ljussensor
+**read/write till app inventor.
