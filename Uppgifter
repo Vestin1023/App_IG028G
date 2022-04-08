@@ -8,5 +8,13 @@ Den ska ha en trevlig interface som har två sidor. Ena sidan ska vara med funkt
 Andra sidan ska vara "databasen" där vi kan se input och output från arduinon. 
 
 
+Uppdelning om vi kan göra allt i app inventor:
+*Kod för att koppla delar till arduino. Var person är ansvarig för sin del till arduinon.
+*Få en kontrollerbar Led lampa att fungera genom app inventor.
+*Avståndssenor med ultraljud i appinventor.
+*Få arduinon att ansluta med bluetooth i app inventor.
+*Databas att skriva till i app inventor.
+
+
 
 
