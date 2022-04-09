@@ -126,3 +126,47 @@ void loop ()
 länk (https://www.robotique.tech/robotics/switch-a-lamp-on-and-off-via-bluetooth-with-computer-and-arduino/)
 
 
+
+
+
+
+
+
+fjärde code.  The code for HC-05 and Arduino interdacing c/c++.
+
+// bluetooth uses serial communication. so, we use many serial functions in this sketch.
+
+const int LED = 5; // declaring that there is an LED on pin 5 of the Arduino board. we use (const) as we will not change this. 
+
+char switchstate;  // declaring that there is a variable called switchstate, which will hold a character value. this is due to peogramming of the app, which will
+                   // send a text value to Arduino. om vi skriver 'int' iställe av 'char' kommer att det koden fungerar inte.
+
+void setup () // here the code only runs once.
+{
+  serial.begin (9600);      // to start serial communication at a rate of 9600 bits per second. this is the default rate anyways.
+  pinMode (LED, OUTPUT);   // declaring that the LED is an output.
+}
+
+void loop () // this code repeats. this is our main code.
+{
+  while (Serial.available () > 0)  // code to be executed only.  serial.available > 0 is to check if there is any reading from the bluetooth. 
+  {
+    switchstate = Serial.read ();  // the character we had declared earlier is now being assigned a value, the value if whatever Serila.read() is. serial.read is to read the value coming from app.
+    Serial.print (switchstate);    // this will print the value onto the serial monitor.
+    Serial.print ("\n");           // this moves to the next line efter every new line printed.
+    
+    delay (15);  // given a break of 15 milliseconds. delay is for human eye, and for speed of some computers, as some will crash att high speeds.
+    
+    if (switchstate == '1')  // checking if the value from app is '1'.
+    {
+      digitalWrite (5, HIGH);    // if it is, write the component on pin 5 (LED) high.
+    }
+    else if (switchstate == '0')
+    {
+      digitalWrite (5, LOW)    // write the component on pin 5 (LED) low.
+    }
+   }
+ }
+ länk ( https://create.arduino.cc/projecthub/mukeshkp2005/arduino-with-bluetooth-to-control-an-led-d8e16d).
+    
+
