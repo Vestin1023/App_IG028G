@@ -1,0 +1,38 @@
+Hur man kan ha flera funktioner att byta mellan.
+
+byte switch0 = 2; // wire switch to connect to Gnd
+byte switch1 = 3; // wire switch to connect to Gnd
+byte programToRun;
+void setup(){
+pinMode (switch0, INPUT_PULLUP);
+pinMode (switch1, INPUT_PULLUP);
+}
+void loop(){
+// read switches and calculate what to run, am sure there are better ways to do this. See example below.
+if (digitalRead(switch1) == HIGH){
+bit1 = 2;
+}
+else {
+bit1 0 ;
+}
+if (digitalRead(switch0) == HIGH){
+bit0 = 1;
+}
+else {
+bit0 = 0;
+}
+programToRun = bit1 + bit0; // results in 3,2,1,0
+
+// perhaps programToRun = (PIND >> 2) & 0b00000011; // shift bits 3,2 into position 1, 0, mask off the rest
+switch (programToRun){
+case 0:
+//code for 'program 0'
+break;
+case 1:
+// code for 'program 1'
+break;
+case 2:
+// code for 'program 2'
+break;
+case 3:
+// code for 'program 3'
