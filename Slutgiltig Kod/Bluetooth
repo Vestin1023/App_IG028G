@@ -1,0 +1,32 @@
+const int LED = 5;  // (förklarar att det finns LED på stift 5 på Arduino-kortet. vi använder (const) eftersom vi inte kommer att ändra detta.)
+
+char switchstate; // (deklarerar att det finns en variabel som heter switch state, som kommer att hålla ett tecken värde. detta beror på programmering av appen, som kommer att skicka ett textvärde till Arduino.)
+
+void setup () //   här körs koden bara en gång.
+{
+ serial.begin (9600);  //  (för att starta seriell kommunikation med en hastighet av 9600 bitar per sekund. detta är i alla fall standard räntan.)
+
+ pinMode (LED, OUTPUT);  //  förklarar att LED är en utgång.
+}
+void loop ()  //  denna kod upprepas. detta är vår huvudkod.
+{
+ while (Serial.available () > 0) //  (kod som endast ska köras. serial.available > 0 är för att kontrollera om det finns någon avläsning från bluetooth.)
+{
+ switchstate = Serial.read (); //  (tecknet vi hade deklarerat tidigare tilldelas nu ett värde, värdet av vad Serial.read() än är. serial.read är att läsa värdet som kommer från app.)
+
+ Serial.print (switchstate);  //  (detta kommer att skriva ut värdet på den seriella monitorn.
+ Serial.print ("\n"); // detta flyttas till nästa rad efter varje ny rad som skrivs ut.)
+
+delay (15); // (ges en paus på 15 millisekunder. fördröjning är för det mänskliga ögat och för hastigheten på vissa datorer, eftersom vissa kommer att krascha i höga hastigheter.)  
+
+if (switchstate == '1')  //  kontrollera om värdet från appen är '1'
+{
+digitalWrite (5, HIGH);  //  om så är fallet, skriv komponenten på stift 5 (LED) högt.
+}
+else if (switchstate == '0') 
+    {
+digitalWrite (5, LOW)  //    skriv komponenten på stift 5 (LED) låg.
+}
+}
+}
+
