@@ -1,0 +1,103 @@
+#define echoPin 2 // attach pin D2 Arduino to pin Echo of HC-SR04
+#define trigPin 3 //attach pin D3 Arduino to pin Trig of HC-SR04
+
+// defines variables
+long duration; // variable for the duration of sound wave travel
+int distance; // variable for the distance measurement
+int light_in; // variable for light calculation
+
+const int fotoanalogInPin = A1; //Analog input pin that the fotoresistor is attached to
+const int ultraanalogInPin = A0;  // Analog input pin that the potentiometer is attached to
+const int analogOutPin = 9; // Analog output pin that the LED is attached to
+const int buttonPin = 2; //Nummer of the buttonpin
+
+int buttonState = 0;        //value read from button
+int fotoValue = 0;          // value read from the fotoresistor
+int sensorValue = 0;        // value read from the pot
+int outputValue = 0;        // value output to the PWM (analog out)
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+
+  
+  pinMode(2, INPUT_PULLUP);  // button
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT
+  pinMode(echoPin, INPUT); // Sets the echoPin as an INPUT
+ 
+ 
+}
+void loop() {
+  // Clears the trigPin condition
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+  // Displays the distance on the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+
+  
+  //button
+  buttonState = digitalRead(buttonPin);
+
+  //case 1 
+  while(buttonState == HIGH){
+ 
+  fotoValue = analogRead(fotoanalogInPin);
+  //outputValue = map(fotoValue, 0, 1023, 200, 255);
+  // read the analog in value:
+  sensorValue = analogRead(ultraanalogInPin);
+  // map it to the range of the analog out:
+  outputValue = map(sensorValue, 0, 1023, 0, 255);
+  if (distance < 100 ) {
+    outputValue = map(sensorValue, 0, 1023, 0 , 240);
+    if (distance < 50) {
+      outputValue = map(sensorValue, 0, 1023, 0, 225);
+      if (distance < 10) {
+        outputValue = map(sensorValue, 0, 1023, 0, 200);
+      }
+    }
+  }
+}
+
+  //case 2
+  while(buttonState == LOW){
+   fotoValue = analogRead(fotoanalogInPin);
+  outputValue = map(fotoValue, 0, 1023, 0, 200);
+  // read the analog in value:
+  sensorValue = analogRead(ultraanalogInPin);
+  // map it to the range of the analog out:
+  //outputValue = map(sensorValue, 0, 1023, 0, 170);
+  if (distance < 100 ) {
+    outputValue = map(sensorValue, 0, 1023, 0 , 100);
+    if (distance < 50) {
+      outputValue = map(sensorValue, 0, 1023, 0, 50);
+      if (distance < 10) {
+        outputValue = map(sensorValue, 0, 1023, 0, 10);
+       }
+     }
+     }
+  }
+  // change the analog out value:
+  analogWrite(analogOutPin, outputValue);
+
+  // print the results to the Serial Monitor:
+  Serial.print("fotosensor = ");
+  Serial.print(fotoValue);
+  Serial.print("Ultraljud sensor = ");
+  Serial.print(sensorValue);
+  Serial.print("\t output = ");
+  Serial.println(outputValue);
+
+ 
+  // wait 2 milliseconds before the next loop for the analog-to-digital
+  delay(2);
